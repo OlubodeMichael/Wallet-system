@@ -1,11 +1,14 @@
 const express = require("express");
+const walletRoutes = require("./routes/walletRoutes");
 
 const app = express();
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.listen(8000, () => {
-  console.log("Server is running on port 3000");
-});
+app.post("/api/paystack/webhook", walletRoutes);
+
+module.exports = app;
