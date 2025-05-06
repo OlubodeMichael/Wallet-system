@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const BankAccountInfoSchema = new mongoose.Schema({
   account_name: { type: String, required: true },
@@ -11,8 +12,12 @@ const BankAccountInfoSchema = new mongoose.Schema({
 
 const DriverSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  email: { type: String, unique: true },
-  phone: { type: String },
+  email: {
+    type: String,
+    unique: true,
+    validate: [validator.isEmail, "Please provide a valid email"],
+  },
+  phone: { type: String, required: true },
   wallet_balance: { type: Number, default: 0 },
   bank_account_info: BankAccountInfoSchema,
 });

@@ -1,3 +1,5 @@
+const axios = require("axios");
+const catchAsync = require("../utils/catchAsync");
 /*
 1. verifyTransaction(reference)
 Sends a GET request to /transaction/verify/:reference
@@ -29,4 +31,23 @@ Used in your withdrawWallet or debitWallet logic
 
 */
 
-const axios = require("axios");
+const paystackApi = axios.create({
+  baseURL: "https://api.paystack.co",
+  headers: {
+    Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+  },
+});
+
+exports.initializeTransaction = async ({ email, amount, driverId }) => {
+  const response = await paystackApi.post("/transaction/initialize", {
+    email,
+    amount,
+    metadata: { driverId },
+  });
+
+  if (response.status !== 200) {
+    throw new Error("Failed to initialize transaction");
+  }
+
+  return response.data;
+};

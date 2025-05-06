@@ -27,6 +27,8 @@ const TransactionSchema = new mongoose.Schema({
   reference: {
     type: String, // e.g. Paystack reference or internal ref
     default: null,
+    required: true,
+    unique: true,
   },
   status: {
     type: String,

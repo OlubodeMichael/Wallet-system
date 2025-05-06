@@ -19,6 +19,10 @@ const PlatformEarningsSchema = new mongoose.Schema({
     type: String,
     default: "Commission",
   },
+  balance_after: {
+    type: Number,
+    required: true, // ✅ required since it's crucial
+  },
   created_at: {
     type: Date,
     default: Date.now,
