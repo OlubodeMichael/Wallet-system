@@ -7,7 +7,7 @@ const BankAccountInfoSchema = new mongoose.Schema({
   bank_name: { type: String, required: true },
   bank_code: { type: String, required: true },
   recipient_code: { type: String },
-  //is_verified: { type: Boolean, default: false },
+  is_primary: { type: Boolean, default: false },
 });
 
 const DriverSchema = new mongoose.Schema({
@@ -19,7 +19,7 @@ const DriverSchema = new mongoose.Schema({
   },
   phone: { type: String, required: true },
   wallet_balance: { type: Number, default: 0 },
-  bank_account_info: BankAccountInfoSchema,
+  bank_accounts: [BankAccountInfoSchema],
 });
 
 module.exports = mongoose.model("Driver", DriverSchema);

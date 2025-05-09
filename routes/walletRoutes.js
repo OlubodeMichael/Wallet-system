@@ -1,9 +1,7 @@
 const express = require("express");
-const router = express.Router();
+const walletController = require("../controllers/walletController");
+const router = express.Router({ mergeParams: true });
 
-router.post("/create-transfer-recipient", (req, res) => {
-  console.log("Webhook received:", req.body); // Log the payload
-  res.sendStatus(200); // Respond so Paystack doesn't retry
-});
+router.get("/", walletController.getWalletBalance);
 
 module.exports = router;

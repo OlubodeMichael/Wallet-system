@@ -15,5 +15,5 @@ app.get("/", (req, res) => {
 
 app.use("/api", paystackRoutes);
 app.use("/api", driverRoutes);
-
+app.use("/api", walletRoutes);
 module.exports = app;

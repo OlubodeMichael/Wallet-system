@@ -1,10 +1,11 @@
-const walletController = require("./walletController");
+const walletService = require("./../services/walletService");
 const Driver = require("./../models/Driver");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
 exports.handlePaystackWebhook = catchAsync(async (req, res, next) => {
   const { event, data } = req.body;
+  console.log(data);
 
   // 1. Validate event
   if (event !== "charge.success") {
@@ -22,5 +23,5 @@ exports.handlePaystackWebhook = catchAsync(async (req, res, next) => {
   const driver = await Driver.findOne({ email });
   if (!driver) return;
 
-  await walletController.creditWallet(driver._id, amount, reference);
+  await walletService.creditWallet(driver._id, amount, reference);
 });
