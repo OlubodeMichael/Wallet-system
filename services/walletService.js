@@ -76,7 +76,7 @@ exports.debitWallet = async (driverId, amount) => {
   }
 
   // Get primary bank account
-  const primaryAccount = driver.bank_account_info.find((acc) => acc.is_primary);
+  const primaryAccount = driver.bank_accounts.find((acc) => acc.is_primary);
   if (!primaryAccount || !primaryAccount.recipient_code) {
     throw new Error("No valid primary bank account with recipient code");
   }
@@ -123,4 +123,13 @@ exports.getWalletBalance = async (driverId) => {
   }
 
   return driver.wallet_balance;
+};
+
+exports.getTransactions = async (driverId) => {
+  const transactions = await Transaction.find({
+    driver: driverId,
+    type: { $in: ["deposit", "withdrawal"] },
+  }).sort({ created_at: -1 });
+
+  return transactions;
 };

@@ -1,7 +1,6 @@
 const AppError = require("../utils/appError");
 const Driver = require("../models/Driver");
 const catchAsync = require("../utils/catchAsync");
-const PlatformEarning = require("../models/PlatformEarnings");
 const walletService = require("../services/walletService");
 
 exports.getWalletBalance = catchAsync(async (req, res, next) => {
@@ -46,6 +45,19 @@ exports.withdrawFromWallet = catchAsync(async (req, res, next) => {
     status: "success",
     data: {
       transfer,
+    },
+  });
+});
+
+exports.getTransactions = catchAsync(async (req, res, next) => {
+  const { driverId } = req.params;
+
+  const transactions = await walletService.getTransactions(driverId);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      transactions,
     },
   });
 });

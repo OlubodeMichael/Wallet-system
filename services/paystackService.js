@@ -34,34 +34,6 @@ Used in your withdrawWallet or debitWallet logic
 
 */
 
-/*
-async function testCreateRecipient() {
-  try {
-    const response = await axios.post(
-      "https://api.paystack.co/transferrecipient",
-      {
-        type: "nuban",
-        name: "Test User",
-        account_number: "01000000010",
-        bank_code: "058",
-        currency: "NGN",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    console.log("✅ Response:", response.data);
-  } catch (err) {
-    console.error("❌ Error:", err.response?.data || err.message);
-  }
-}
-
-testCreateRecipient();
-*/
 const paystackApi = axios.create({
   baseURL: "https://api.paystack.co",
   headers: {
